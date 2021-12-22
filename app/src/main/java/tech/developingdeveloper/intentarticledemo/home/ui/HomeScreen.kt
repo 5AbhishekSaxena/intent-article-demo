@@ -1,32 +1,37 @@
 package tech.developingdeveloper.intentarticledemo.home.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import tech.developingdeveloper.intentarticledemo.home.strategy.SharingIntent
+import tech.developingdeveloper.intentarticledemo.home.strategy.method_three.oo.OOSharingIntent
 import tech.developingdeveloper.intentarticledemo.home.strategy.method_three.oo.sms.Sms
+import tech.developingdeveloper.intentarticledemo.home.strategy.method_two.sealed.SealedClassesSharingIntent
 
-/**
- * This is a poor implementation of Strategy Design Pattern in [homeViewModel] for toastStrategy, this is done so the user can easily
- * test different approaches listed in the article(link) without making a lot of modifications.
- */
 @Composable
-fun HomeScreen(
-    homeViewModel: HomeViewModel
-) {
+fun HomeScreen() {
     val context = LocalContext.current
+
+    val sharingIntent: SharingIntent = remember {
+//        UtilityMethodsSharingIntent() // method 1
+//        SealedClassesSharingIntent() // method 2
+        OOSharingIntent() // method 3
+    }
+
     HomeContent(
         onSmsButtonClick = {
             val sms = Sms(
                 phoneNumber = "9999999999",
                 body = "Hey, this is a  test message."
             )
-            homeViewModel.sharingIntent.onSmsClick(context, sms)
+            sharingIntent.onSmsClick(context, sms)
         },
         onSimpleTextButtonClick = {
             val text = "This is some default text."
-            homeViewModel.sharingIntent.onSimpleTextButtonClick(context, text)
+            sharingIntent.onSimpleTextButtonClick(context, text)
         }, onWebSharingButtonClick = {
             val url = "https://www.google.com"
-            homeViewModel.sharingIntent.onWebSharingButtonClick(context, url)
+            sharingIntent.onWebSharingButtonClick(context, url)
         }
     )
 }

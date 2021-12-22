@@ -12,14 +12,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import tech.developingdeveloper.intentarticledemo.core.theme.IntentArticleDemoTheme
 import tech.developingdeveloper.intentarticledemo.home.ui.HomeScreen
-import tech.developingdeveloper.intentarticledemo.home.ui.HomeViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val homeViewModel = ViewModelProvider.NewInstanceFactory()
-            .create(HomeViewModel::class.java)
 
         setContent {
             IntentArticleDemoTheme {
@@ -27,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    HomeScreen(homeViewModel)
+                    HomeScreen()
                 }
             }
         }
@@ -38,6 +34,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     IntentArticleDemoTheme {
-        HomeScreen(homeViewModel = HomeViewModel())
+        HomeScreen()
     }
 }
